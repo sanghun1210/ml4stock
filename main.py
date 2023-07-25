@@ -1,7 +1,8 @@
 # pip3 install pykrx
 from pykrx import stock
 from pykrx import bond
-from datetime import datetime
+from datetime import datetime, timedelta
+import pandas as pd
 
 def is_fundamental_pbr_good(stock_code):
     try:
@@ -13,14 +14,36 @@ def is_fundamental_pbr_good(stock_code):
     except Exception as e:    
         return False
 
-def get_stock_data(stock_code, start_date, end_date):
-    # stock_code: 종목 코드 (e.g., '005930' for 삼성전자)
-    # start_date: 데이터 시작일 (YYYY-MM-DD 형식)
-    # end_date: 데이터 종료일 (YYYY-MM-DD 형식)
-    
-    # 주식 데이터 가져오기
-    df = stock.get_market_ohlcv_by_date(start_date, end_date, stock_code)
+def get_daily_data(stock_code):
+    try:
+        # 현재 날짜 구하기
+        current_date = datetime.now()
+        result_date = current_date - timedelta(days=365)
+
+        current_date_string = current_date.strftime('%Y-%m-%d')
+        result_date_string = result_date.strftime('%Y-%m-%d')
+
+        df = stock.get_market_ohlcv_by_date(result_date_string, current_date_string, stock_code)
+        return df
+    except:
+        empty_df = pd.DataFrame()
+        return empty_df
+
+# 데이터프레임이 비어있는지 체크하는 함수
+def is_dataframe_empty(df):
+    return df.empty
+
+def rename_stock_column(df):
+    new_column_names = {
+        '시가': 'open_price',
+        '고가': 'high_price',
+        '저가': 'low_price',
+        '종가': 'trade_price',
+        '거래량': 'volume',
+    }
+    df.rename(columns=new_column_names, inplace=True)
     return df
+
 
 def main():
     try:
@@ -29,11 +52,17 @@ def main():
 
         for ticker in tickers :
             print(ticker)
-            if is_fundamental_pbr_good(ticker): 
+            if is_fundamental_pbr_good(ticker) == False: 
+                continue
+
+            df = get_daily_data(ticker)
+            if is_dataframe_empty(df) == False:
+                df = rename_stock_column(df)
+                print(df) 
                 break
-            else:
-                print('fundatmental error')
-        
+
+            
+
     except Exception as e:    
         print("raise error ", e)
 
