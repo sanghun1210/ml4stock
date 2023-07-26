@@ -4,6 +4,8 @@ from pykrx import bond
 from datetime import datetime, timedelta
 import pandas as pd
 
+from .technical_analysis import pattern1_check
+
 def is_fundamental_pbr_good(stock_code):
     try:
         now = datetime.now()
@@ -44,6 +46,30 @@ def rename_stock_column(df):
     df.rename(columns=new_column_names, inplace=True)
     return df
 
+def resample_to_week(df):
+    resampled_data = {
+    'open_price': 'first',
+    'high_price': 'max',
+    'low_price': 'min',
+    'trade_price': 'last',
+    'volume': 'sum',
+    }
+
+    df_weekly = df.resample('W').agg(resampled_data)
+    return df_weekly
+
+def resample_to_month(df):
+    resampled_data = {
+    'open_price': 'first',
+    'high_price': 'max',
+    'low_price': 'min',
+    'trade_price': 'last',
+    'volume': 'sum',
+    }
+
+    df_monthly = df.resample('M').agg(resampled_data)
+    return df_monthly
+
 
 def main():
     try:
@@ -57,11 +83,11 @@ def main():
 
             df = get_daily_data(ticker)
             if is_dataframe_empty(df) == False:
-                df = rename_stock_column(df)
-                print(df) 
-                break
-
-            
+                daily_df = rename_stock_column(df)
+                weekly_df = resample_to_week(daily_df)  
+                monthly_df = resample_to_month(daily_df)
+                if pattern1_check(daily_df, weekly_df, monthly_df) : 
+                    print('wow :' , ticker)
 
     except Exception as e:    
         print("raise error ", e)
