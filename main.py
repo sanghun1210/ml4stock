@@ -3,6 +3,7 @@ from pykrx import stock
 from pykrx import bond
 from datetime import datetime, timedelta
 import pandas as pd
+import multiprocessing
 
 import technical_analysis
 from mail import send_mail
@@ -13,7 +14,7 @@ def is_fundamental_pbr_good(stock_code):
         # 날짜를 문자열로 변환 (YYYY-MM-DD 형식)
         date_string = now.strftime("%Y-%m-%d")
         df = stock.get_market_fundamental(date_string, date_string, stock_code)
-        return df['PBR'].iloc[0] < 3
+        return df['PBR'].iloc[0] < 3.2
     except Exception as e:    
         return False
 
@@ -79,40 +80,71 @@ def is_contain_zero_data(df):
         return True
     return False
 
+def process_list_part(part_tickers, result_queue):
+    for ticker in part_tickers :
+        print(ticker, end=" ")
+        if is_fundamental_pbr_good(ticker) == False:
+            print("pbr is higher  ") 
+            continue
+
+        df = get_daily_data(ticker)
+        if is_dataframe_empty(df) == False:
+            daily_df = rename_stock_column(df)
+            weekly_df = resample_to_week(daily_df)  
+            monthly_df = resample_to_month(daily_df)
+            if is_contain_zero_data(weekly_df) :
+                print('weekly data contain 0')
+                continue
+
+            if is_contain_zero_data(monthly_df) :
+                print('monthly data contain 0')
+                continue 
+
+            if technical_analysis.pattern1_check(daily_df, weekly_df, monthly_df) : 
+                print('****** nice pattern ******')
+                result_queue.put(ticker)
+                #technical_analysis.prophet_check(daily_df, weekly_df, monthly_df)
+                break
+            else :
+                print('bad pattern')    
+        
+
 def main():
     try:
         tickers = stock.get_market_ticker_list(market="KOSDAQ")
         tickers.append(stock.get_market_ticker_list(market="KOSPI"))
 
         nice_tickers = []
+        # tickers 리스트를 세 개의 부분으로 나누기
+        num_processes = 3
 
-        for ticker in tickers :
-            print(ticker, end=" ")
-            if is_fundamental_pbr_good(ticker) == False:
-                print("pbr is higher  ") 
-                continue
+        list_parts = [tickers[i::num_processes] for i in range(num_processes)]
 
-            df = get_daily_data(ticker)
-            if is_dataframe_empty(df) == False:
-                daily_df = rename_stock_column(df)
-                weekly_df = resample_to_week(daily_df)  
-                monthly_df = resample_to_month(daily_df)
-                if is_contain_zero_data(weekly_df) :
-                    print('weekly data contain 0')
-                    continue
+        # 프로세스 결과를 저장할 큐
+        result_queue = multiprocessing.Queue()
 
-                if is_contain_zero_data(monthly_df) :
-                    print('monthly data contain 0')
-                    continue 
+        # 프로세스 리스트
+        processes = []
+        for part in list_parts:
+            process = multiprocessing.Process(target=process_list_part, args=(part, result_queue))
+            processes.append(process)
 
-                if technical_analysis.pattern1_check(daily_df, weekly_df, monthly_df) : 
-                    print('****** nice pattern ******')
-                    nice_tickers.append(ticker)
-                else :
-                    print('bad pattern')
+        # 프로세스 실행
+        for process in processes:
+            process.start()
 
-        print(nice_tickers)
-        msg = '\r\n'.join(nice_tickers)
+        # 모든 프로세스가 종료될 때까지 대기
+        for process in processes:
+            process.join()
+
+        # 결과를 저장할 리스트
+        results = []
+
+        # 결과 큐에서 결과 가져오기
+        while not result_queue.empty():
+            results.extend(result_queue.get())
+
+        msg = '\r\n'.join(results)
         send_mail(msg, "check stock result")
 
     except Exception as e:    
