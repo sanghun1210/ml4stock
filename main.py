@@ -4,7 +4,8 @@ from pykrx import bond
 from datetime import datetime, timedelta
 import pandas as pd
 
-from .technical_analysis import pattern1_check
+import technical_analysis
+from mail import send_mail
 
 def is_fundamental_pbr_good(stock_code):
     try:
@@ -70,15 +71,25 @@ def resample_to_month(df):
     df_monthly = df.resample('M').agg(resampled_data)
     return df_monthly
 
+def is_contain_zero_data(df):
+    if (df['trade_price'] == 0).any() or \
+        (df['high_price'] == 0).any() or \
+        (df['low_price'] == 0).any() or \
+        (df['open_price'] == 0).any() :
+        return True
+    return False
 
 def main():
     try:
         tickers = stock.get_market_ticker_list(market="KOSDAQ")
         tickers.append(stock.get_market_ticker_list(market="KOSPI"))
 
+        nice_tickers = []
+
         for ticker in tickers :
-            print(ticker)
-            if is_fundamental_pbr_good(ticker) == False: 
+            print(ticker, end=" ")
+            if is_fundamental_pbr_good(ticker) == False:
+                print("pbr is higher  ") 
                 continue
 
             df = get_daily_data(ticker)
@@ -86,8 +97,23 @@ def main():
                 daily_df = rename_stock_column(df)
                 weekly_df = resample_to_week(daily_df)  
                 monthly_df = resample_to_month(daily_df)
-                if pattern1_check(daily_df, weekly_df, monthly_df) : 
-                    print('wow :' , ticker)
+                if is_contain_zero_data(weekly_df) :
+                    print('weekly data contain 0')
+                    continue
+
+                if is_contain_zero_data(monthly_df) :
+                    print('monthly data contain 0')
+                    continue 
+
+                if technical_analysis.pattern1_check(daily_df, weekly_df, monthly_df) : 
+                    print('****** nice pattern ******')
+                    nice_tickers.append(ticker)
+                else :
+                    print('bad pattern')
+
+        print(nice_tickers)
+        msg = '\r\n'.join(nice_tickers)
+        send_mail(msg, "check stock result")
 
     except Exception as e:    
         print("raise error ", e)
