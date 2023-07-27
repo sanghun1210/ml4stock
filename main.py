@@ -81,8 +81,10 @@ def is_contain_zero_data(df):
     return False
 
 def process_list_part(part_tickers, result_queue):
+    print(len(part_tickers))
+    curr_proc = multiprocessing.current_process()
     for ticker in part_tickers :
-        print(ticker, end=" ")
+        print(curr_proc, ticker, end=" ")
         if is_fundamental_pbr_good(ticker) == False:
             print("pbr is higher  ") 
             continue
@@ -104,7 +106,6 @@ def process_list_part(part_tickers, result_queue):
                 print('****** nice pattern ******')
                 result_queue.put(ticker)
                 #technical_analysis.prophet_check(daily_df, weekly_df, monthly_df)
-                break
             else :
                 print('bad pattern')    
         
@@ -142,7 +143,7 @@ def main():
 
         # 결과 큐에서 결과 가져오기
         while not result_queue.empty():
-            results.extend(result_queue.get())
+            results.append(result_queue.get())
 
         msg = '\r\n'.join(results)
         send_mail(msg, "check stock result")
