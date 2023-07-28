@@ -120,7 +120,6 @@ def process_list_part(part_tickers, result_queue):
 
 def process_list(part_tickers, result_list):
     for ticker in part_tickers :
-        ticker = '044450'
         print(ticker, end=" ")
         if is_fundamental_pbr_is_higher(ticker) :
             continue
