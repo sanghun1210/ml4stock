@@ -19,8 +19,10 @@ def pattern2_check(daily_df, weekly_df, monthly_df):
         res['ADX_14'].iloc[-1] < res['DMP_14'].iloc[-1] and \
         algorithms.macd_line_over_than_signal2(weekly_df, 12, 26, 9) and \
         cci14 < 20 :
-        slow_k, slow_d = algorithms.stc_slow(daily_df, 7, 3, 3)
-        if slow_d.iloc[-1] < 45 and slow_k.iloc[-1] < slow_d.iloc[-1] :
+        res_day = algorithms.adx(daily_df['high_price'], daily_df['low_price'], daily_df['trade_price'], 14)
+        if res_day['DMP_14'].iloc[-1] > res_day['DMN_14'].iloc[-1] and \
+            res_day['ADX_14'].iloc[-1] < res_day['DMP_14'].iloc[-1] and \
+            res_day['ADX_14'].iloc[-1] > res_day['ADX_14'].iloc[-5] :
             return True
     return False
 
