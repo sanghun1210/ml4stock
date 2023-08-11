@@ -38,9 +38,13 @@ def pattern3_check(weekly_df) :
     res = algorithms.adx(weekly_df['high_price'], weekly_df['low_price'], weekly_df['trade_price'], 14)
     cci14 = algorithms.get_current_cci(weekly_df, 14)
     if res['DMP_14'].iloc[-1] > res['DMN_14'].iloc[-1] and \
-        res['ADX_14'].iloc[-1] < res['DMP_14'].iloc[-1] and cci14 < 30 :
+        res['ADX_14'].iloc[-1] < res['DMP_14'].iloc[-1] and cci14 < 50 :
         return True
     return False
+
+def value_check(weekly_df, good_value) :
+    print("trade_price : {0}, good_value : {1}".format(weekly_df['trade_price'].iloc[-1],good_value))
+    return weekly_df['trade_price'].iloc[-1]< good_value
 
 # sklearn logisticRegression by daily_df
 from sklearn.linear_model import LogisticRegression
