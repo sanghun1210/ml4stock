@@ -12,7 +12,11 @@ from data_handler import StockDataHandler
 from backtest_long_only import BacktestLongOnly
 from fundametal_analysis import FundamentalAnalysis, FundamentalSector
 
-
+my_tickers = ['263600', #덕우전자 
+              '003960', #사조대림
+              '030210', #다올투자증권,
+              '140070', #서플러스글로벌
+              ]
 
 def get_tickers_from_csv(market):
     tickers = []
@@ -47,16 +51,18 @@ def run_strategies(ticker, result_list):
         if data_handler.check_valid_data() == False:
             return 
         
-        print('    - fundadamental analysis pass')
+        print('    - check_valid_data pass')
         # if technical_analysis.value_check(data_handler.get_weekly_data(), 
         #                                   fa.get_good_stock_value()) == False:
         #     return
         
-        if technical_analysis.pattern4_check(data_handler.get_weekly_data()) == False:
+        if technical_analysis.pattern3_check(data_handler.get_weekly_data()) == False:
             return
 
+        print('    - adx pass')
         lobt = BacktestLongOnly(ticker, data_handler.get_weekly_data(), 100000, verbose=False)
-        lobt.run_random_forest_strategy_v2(14)
+        lobt.run_random_forest_strategy_v2(13)
+        print('    - random_forest pass')
         if lobt.position == 1:
             name = stock.get_market_ticker_name(ticker)
             result_list.append(ticker + ' p1 : ' + name)
@@ -91,12 +97,12 @@ def main():
         result_list = []
         count =0
         start, end = get_period()
-        for ticker in kospi_tickers :
+        for ticker in kosdaq_tickers :
             count+=1
             print('[' + str(count) + '] : ' + ticker + ' ...')  
             run_strategies(ticker, result_list)
 
-        for ticker in kosdaq_tickers :
+        for ticker in kospi_tickers :
             count+=1
             print('[' + str(count) + '] : ' + ticker + ' ...')  
             run_strategies(ticker, result_list)

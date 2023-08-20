@@ -42,6 +42,15 @@ def pattern3_check(weekly_df) :
         return True
     return False
 
+def pattern4_check(weekly_df) :
+    res = algorithms.adx(weekly_df['high_price'], weekly_df['low_price'], weekly_df['trade_price'], 14)
+    cci14 = algorithms.get_current_cci(weekly_df, 14)
+    ema13 = algorithms.ema(weekly_df,13)
+    if algorithms.macd_line_over_than_signal2(weekly_df, 12, 26, 9) and ema13.iloc[-1] < weekly_df['trade_price'].iloc[-1] \
+        and cci14 < 50 :
+        return True
+    return False
+
 def value_check(weekly_df, good_value) :
     print("trade_price : {0}, good_value : {1}".format(weekly_df['trade_price'].iloc[-1],good_value))
     return weekly_df['trade_price'].iloc[-1]< good_value
@@ -79,6 +88,12 @@ def logistic_regression(daily_df):
     daily_df[['return', 'strategy']].cumsum().apply(np.exp).plot(figsize=(10, 6))
     #print(daily_df.tail(50))
     #plt.show()
+
+def pattern_index_check(daily_df, weekly_df):
+    ema13 = algorithms.ema(weekly_df,13)
+    if algorithms.macd_line_over_than_signal2(weekly_df, 12, 26, 9) and ema13.iloc[-1] < weekly_df['trade_price'].iloc[-1]:
+        return True
+    return False
 
 
     

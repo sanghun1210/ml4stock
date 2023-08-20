@@ -3,10 +3,11 @@ from pykrx import bond
 import pandas as pd
 
 class StockDataHandler(object):
-    def __init__(self, stock_code, start_date, end_date):
+    def __init__(self, stock_code, start_date, end_date, is_index = False):
         self.stock_code = stock_code
         self.start_date = start_date
         self.end_date = end_date
+        self.is_index = is_index
         self.daily_data = pd.DataFrame()
         self.weekly_data = pd.DataFrame()
         self.get_data()
@@ -24,8 +25,12 @@ class StockDataHandler(object):
 
     def get_data(self):
         try:
-            df = stock.get_market_ohlcv_by_date(self.start_date, self.end_date, self.stock_code)
-            self.daily_data = self.rename_stock_column(df)
+            if self.is_index :
+                df = stock.get_index_ohlcv(self.start_date, self.end_date, self.stock_code)
+                self.daily_data = self.rename_stock_column(df)
+            else:
+                df = stock.get_market_ohlcv_by_date(self.start_date, self.end_date, self.stock_code)
+                self.daily_data = self.rename_stock_column(df)
         except:
             self.daily_data = pd.DataFrame()
     

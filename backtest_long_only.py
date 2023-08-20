@@ -190,13 +190,9 @@ class BacktestLongOnly(BackTestBase):
             if self.data['predict'][bar] > 0 and self.position == 0:
                 self.place_buy_order(bar, amount=self.amount)
                 self.position = 1
-                self.position_change = True
             elif self.data['predict'][bar] < 0 and self.position == 1:
                 self.place_sell_order(bar, amount=self.amount)
                 self.position = 0
-                self.position_change = True
-            else :
-                self.position_change = False
         self.close_out(bar)
 
 

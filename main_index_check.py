@@ -37,33 +37,15 @@ def get_tickers(market):
 def run_strategies(ticker, result_list):
     try:
         start, end = get_period()
-
-        fa = FundamentalAnalysis(ticker,start, end)
-        if fa.is_empty == True: return
-        if fa.is_good_per_to_buy() == False: return
-        
-        print('    - fundadamental analysis pass')
-        data_handler = StockDataHandler(ticker, start, end)
+        data_handler = StockDataHandler(ticker, start, end, True)
         if data_handler.check_valid_data() == False:
             return 
         
-        print('    - fundadamental analysis pass')
-        # if technical_analysis.value_check(data_handler.get_weekly_data(), 
-        #                                   fa.get_good_stock_value()) == False:
-        #     return
-        
-        if technical_analysis.pattern4_check(data_handler.get_weekly_data()) == False:
-            return
-
-        lobt = BacktestLongOnly(ticker, data_handler.get_weekly_data(), 100000, verbose=False)
-        lobt.run_random_forest_strategy_v2(14)
-        if lobt.position == 1:
-            name = stock.get_market_ticker_name(ticker)
-            result_list.append(ticker + ' p1 : ' + name)
-            print('p1 pass')
-
+        print('    - check_valid_data pass')
+        return technical_analysis.pattern_index_check(data_handler.get_daily_data(), data_handler.get_weekly_data())
     except Exception as e:
         print("Error : ", e)
+        return False
 
 
 def get_period():
@@ -76,13 +58,8 @@ def get_period():
 
 def main():
     try:
-        kospi_tickers = get_tickers('KOSPI')
-        if kospi_tickers == None:
-            kospi_tickers = get_tickers_from_csv('KOSPI')
-
-        kosdaq_tickers = get_tickers('KOSDAQ')
-        if kosdaq_tickers == None:
-            kosdaq_tickers = get_tickers_from_csv('KOSDAQ')
+        kospi_tickers = stock.get_index_ticker_list(market='KOSPI')
+        kosdaq_tickers = stock.get_index_ticker_list(market='KOSDAQ')
         
         print('kospi tickers count : ', len(kospi_tickers) )
         print('kosdaq tickers count : ', len(kosdaq_tickers) )
@@ -91,16 +68,22 @@ def main():
         result_list = []
         count =0
         start, end = get_period()
-        for ticker in kospi_tickers :
-            count+=1
-            print('[' + str(count) + '] : ' + ticker + ' ...')  
-            run_strategies(ticker, result_list)
-
         for ticker in kosdaq_tickers :
             count+=1
             print('[' + str(count) + '] : ' + ticker + ' ...')  
-            run_strategies(ticker, result_list)
-                
+            if run_strategies(ticker, result_list) : 
+                print('wow')
+                name = stock.get_index_ticker_name(ticker)
+                result_list.append(ticker + ' KOSDAQ : ' + name)
+
+        for ticker in kospi_tickers :
+            count+=1
+            print('[' + str(count) + '] : ' + ticker + ' ...')  
+            if run_strategies(ticker, result_list) : 
+                print('wow')
+                name = stock.get_index_ticker_name(ticker)
+                result_list.append(ticker + ' KOSPI : ' + name)
+
         msg = '\r\n'.join(result_list)
         send_mail(msg, "check stock result")
     except Exception as e:    

@@ -20,7 +20,6 @@ class BackTestBase(object) :
         self.position = 0
         self.trades = 0
         self.units = 0 
-        self.position_change = False
         self.data = data
         self.data['return'] = np.log(self.data['trade_price'] / self.data['trade_price'].shift(1))
         self.data = self.data.dropna()
