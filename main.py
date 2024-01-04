@@ -38,16 +38,16 @@ def run_strategies(ticker, result_list):
     try:
         start, end = get_period()
 
-        fa = FundamentalAnalysis(ticker,start, end)
-        if fa.is_empty == True: return
-        if fa.is_good_per_to_buy() == False: return
+        # fa = FundamentalAnalysis(ticker,start, end)
+        # if fa.is_empty == True: return
+        # if fa.is_good_per_to_buy() == False: return
         
-        print('    - fundadamental analysis pass')
+        # print('    - fundadamental analysis pass')
         data_handler = StockDataHandler(ticker, start, end)
         if data_handler.check_valid_data() == False:
             return 
         
-        print('    - fundadamental analysis pass')
+        # print('    - fundadamental analysis pass')
         # if technical_analysis.value_check(data_handler.get_weekly_data(), 
         #                                   fa.get_good_stock_value()) == False:
         #     return
@@ -56,11 +56,18 @@ def run_strategies(ticker, result_list):
             return
 
         lobt = BacktestLongOnly(ticker, data_handler.get_weekly_data(), 100000, verbose=False)
-        lobt.run_random_forest_strategy_v2(14)
+        #다음달에 오를까?
+        ret_next_week5 = lobt.run_random_forest_strategy_v2(14)
         if lobt.position == 1:
-            name = stock.get_market_ticker_name(ticker)
-            result_list.append(ticker + ' p1 : ' + name)
-            print('p1 pass')
+            # 다음주오를까?
+            lobt_daily = BacktestLongOnly(ticker, data_handler.get_daily_data(), 100000, verbose=False)
+            ret_next_week = lobt_daily.run_random_forest_strategy_v2(14)
+            if lobt_daily.position == 1:
+                name = stock.get_market_ticker_name(ticker)
+                print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
+                result_list.append(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
+                #print('p1 pass')
+
 
     except Exception as e:
         print("Error : ", e)

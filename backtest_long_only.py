@@ -115,7 +115,7 @@ class BacktestLongOnly(BackTestBase):
         reg.fit(X_train, Y_train)
 
         relation_sqare = reg.score(X_train, Y_train)
-        print(relation_sqare)
+        print('reg score : ', relation_sqare)
 
         from sklearn.metrics import mean_squared_error, r2_score
 
@@ -159,7 +159,66 @@ class BacktestLongOnly(BackTestBase):
 
         # 미래와 비교 
         # 다음날 올랐는지 여부
-        Y = np.where(self.data['trade_price'].shift(-1) > self.data['trade_price'], 1, -1) 
+        Y = np.where(self.data['trade_price'].shift(-4) > self.data['trade_price'], 1, -1) 
+
+        split_ratio=0.8
+        split_value=int(split_ratio * len(self.data))
+        X_train=X[:split_value]
+        Y_train=Y[:split_value]
+        X_test=X[split_value:]
+        Y_test=Y[split_value:]
+
+        reg = RandomForestRegressor(n_estimators = 1000, max_depth=200, random_state = 42)
+        reg.fit(X_train, Y_train)
+
+        relation_sqare = reg.score(X_train, Y_train)
+        print('reg score : ', relation_sqare)
+
+        # from sklearn.metrics import mean_squared_error, r2_score
+
+        # print('Mean sqared error: %.2f' % mean_squared_error(Y_train, reg.predict(X_train)))
+        # print('Variance score: %.2f' % r2_score(Y_train, reg.predict(X_train)))
+        # print('Mean sqared error: %.2f' % mean_squared_error(Y_test, reg.predict(X_test)))
+        # print('Variance score: %.2f' % r2_score(Y_test, reg.predict(X_test)))
+
+        # print(len(self.data), len(reg.predict(X_train)), len(reg.predict(X_test)))
+
+        self.data['predict'] = reg.predict(X)
+        # print(self.data.tail(30))
+
+        for bar in range(momentum, len(self.data)):
+            if self.data['predict'][bar] > 0 and self.position == 0:
+                self.place_buy_order(bar, amount=self.amount)
+                self.position = 1
+            elif self.data['predict'][bar] < 0 and self.position == 1:
+                self.place_sell_order(bar, amount=self.amount)
+                self.position = 0
+        self.close_out(bar)
+        return self.data['predict'][-1] 
+
+    #주봉을 바탕으로 봤을때 다음달에는 오를까?
+    def run_random_forest_strategy_v3(self, momentum):
+        # msg = f'\n\nRunning momentum strategy with momentum = {momentum}'
+        # msg += f'\nfixed costs {self.ftc} | '
+        # msg += f'proportional costs {self.ptc}'
+        # print(msg)
+
+        self.position = 0
+        self.trades = 0
+        self.amount = self.initial_amount
+        self.data['momentum'] = self.data['trade_price'].rolling(momentum).mean()
+        self.data['Open-Close'] = (self.data['open_price'] - self.data['trade_price'])/self.data['open_price']
+        self.data['High-Low'] = (self.data['high_price'] - self.data['low_price'])/self.data['low_price']
+        self.data['percent_change'] = self.data['trade_price'].pct_change()
+
+        self.data.dropna(inplace=True)
+
+        # X is the input variable
+        X = self.data[['Open-Close', 'High-Low', 'volume', 'momentum']]
+
+        # 미래와 비교 
+        # 다음날 올랐는지 여부
+        Y = np.where(self.data['trade_price'].shift(-5) > self.data['trade_price'], 1, -1) 
 
         split_ratio=0.8
         split_value=int(split_ratio * len(self.data))
@@ -194,5 +253,7 @@ class BacktestLongOnly(BackTestBase):
                 self.place_sell_order(bar, amount=self.amount)
                 self.position = 0
         self.close_out(bar)
+        print(self.data['predict'][-1])
+
 
 

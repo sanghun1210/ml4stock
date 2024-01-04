@@ -47,7 +47,7 @@ def pattern4_check(weekly_df) :
     cci14 = algorithms.get_current_cci(weekly_df, 14)
     ema13 = algorithms.ema(weekly_df,13)
     if algorithms.macd_line_over_than_signal2(weekly_df, 12, 26, 9) and ema13.iloc[-1] < weekly_df['trade_price'].iloc[-1] \
-        and cci14 < 50 :
+        and cci14 < 60 :
         return True
     return False
 
