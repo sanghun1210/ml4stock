@@ -42,12 +42,16 @@ def pattern3_check(weekly_df) :
         return True
     return False
 
-def pattern4_check(weekly_df) :
-    res = algorithms.adx(weekly_df['high_price'], weekly_df['low_price'], weekly_df['trade_price'], 14)
-    cci14 = algorithms.get_current_cci(weekly_df, 14)
-    ema13 = algorithms.ema(weekly_df,13)
-    if algorithms.macd_line_over_than_signal2(weekly_df, 12, 26, 9) and ema13.iloc[-1] < weekly_df['trade_price'].iloc[-1] \
-        and cci14 < 60 :
+def pattern4_check(df) :
+    cci14 = algorithms.get_current_cci(df, 14)
+    ema14 = algorithms.ema(df,14)
+    if algorithms.macd_line_over_than_signal2(df, 12, 26, 9) and ema14.iloc[-1] < df['trade_price'].iloc[-1] :
+        return True
+    return False
+
+def pattern5_check(df) :
+    slow_k, slow_d = algorithms.stc_slow(df, 10, 5, 5)
+    if slow_d.iloc[-1] < 35 :
         return True
     return False
 

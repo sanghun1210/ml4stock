@@ -172,25 +172,44 @@ class FundamentalAnalysis(object):
         
     def get_good_stock_value(self):
         return self.current_eps * self.current_roe
+    
+def get_recent_quarter_eps(stock_code, year, quarter):
+    eps_data = []
+    current_date = datetime.now()
+
+    # 3분기 전 날짜 계산 (약 9개월 이전)
+    three_quarters_ago = current_date - timedelta(days=365/4*3)
+
+    current_date, three_quarters_ago
+    fdf = stock.get_market_fundamental(three_quarters_ago, current_date, "101360", freq="m")
+    print(fdf)
+    
+    return eps_data
 
 def main():
-    current_date = datetime.now()
-    result_date = current_date - timedelta(days=450)
+    # current_date = datetime.now()
+    # result_date = current_date - timedelta(days=450)
 
-    end_date = current_date.strftime('%Y-%m-%d')
-    start_date = result_date.strftime('%Y-%m-%d')
+    # end_date = current_date.strftime('%Y-%m-%d')
+    # start_date = result_date.strftime('%Y-%m-%d')
 
-    #fs = FundamentalSector(end_date)
-    #fs.print_kospi_data()
-    fa = FundamentalAnalysis('365550', start_date, end_date)
-    fa.get_same_industry_pbr()
-    # fa.get_data_from_naver()
-    # roe = fa.get_current_roe_from_naver()
-    # print(roe)
+    # #fs = FundamentalSector(end_date)
+    # #fs.print_kospi_data()
+    # fa = FundamentalAnalysis('365550', start_date, end_date)
+    # fa.get_same_industry_pbr()
+    # # fa.get_data_from_naver()
+    # # roe = fa.get_current_roe_from_naver()
+    # # print(roe)
+
+    stock_code = '005930'  # 예: 삼성전자
+    current_year = 2023    # 현재 연도 예시
+    current_quarter = 3 
+    recent_eps = get_recent_quarter_eps(stock_code, current_year, current_quarter)
 
 if __name__ == "__main__":
     # execute only if run as a script
     main()
+
 
 
     
