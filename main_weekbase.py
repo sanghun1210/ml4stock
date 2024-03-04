@@ -108,49 +108,14 @@ def run_strategies(ticker, result_list):
         if data_handler.check_valid_data() == False:
             return 
         
-        if technical_analysis.pattern4_check(data_handler.get_weekly_data()) :
+        if technical_analysis.pattern6_check(data_handler.get_weekly_data()) :
             logger.info("pattern4_check pass")
-            if technical_analysis.pattern5_check(data_handler.get_daily_data()) :
-                logger.info("pattern5_check pass")
-                name = stock.get_market_ticker_name(ticker)
-                #print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-                result_list.append(ticker + ' p1 : ' + name )
-                print('p1 pass')
-
-        # if fa.is_empty == True: return
-        # if fa.is_good_per_to_buy() == False: return
-        
-        # print('    - fundadamental analysis pass')
-        # data_handler = StockDataHandler(ticker, start, end)
-        # if data_handler.check_valid_data() == False:
-        #     return 
-        
-        # # print('    - fundadamental analysis pass')
-        # # if technical_analysis.value_check(data_handler.get_weekly_data(), 
-        # #                                   fa.get_good_stock_value()) == False:
-        # #     return
-        
-        # if technical_analysis.pattern4_check(data_handler.get_weekly_data()) == False:
-        #     return
-
-        # lobt = BacktestLongOnly(ticker, data_handler.get_weekly_data(), 100000, verbose=False)
-        # #다음달에 오를까?
-        # ret_next_week5 = lobt.run_random_forest_strategy_v2(14)
-        # if lobt.position == 1:
-        #     # 다음주오를까?
-        #     lobt_daily = BacktestLongOnly(ticker, data_handler.get_daily_data(), 100000, verbose=False)
-        #     ret_next_week = lobt_daily.run_random_forest_strategy_v2(14)
-        #     if lobt_daily.position == 1:
-        #         name = stock.get_market_ticker_name(ticker)
-        #         print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-        #         result_list.append(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-        #         #print('p1 pass')
-
-
+            name = stock.get_market_ticker_name(ticker)
+            #print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
+            result_list.append(ticker + ' p1 : ' + name )
+            print('p1 pass')
     except Exception as e:
         print(e)
-
-
 
 def get_period():
     current_date = datetime.now()
@@ -164,7 +129,7 @@ def main():
     try:
         current_date = datetime.now()
         current_date_string = current_date.strftime('%Y-%m-%d')
-        log_file_name = 'log_daybase' + current_date_string
+        log_file_name = 'log_weekbase_' + current_date_string
         logging.basicConfig(filename=log_file_name, encoding='utf-8', filemode='w', level=logging.INFO)
         kospi_tickers = get_tickers('KOSPI')
         if kospi_tickers == None:
@@ -197,7 +162,7 @@ def main():
             run_strategies(ticker, result_list)
                 
         msg = '\r\n'.join(result_list)
-        send_mail(msg, "중단기 지표-부채비율 및 업종 PBR 고려 필요")
+        send_mail(msg, "중장기 지표-부채비율 및 업종 PBR 고려 필요, 월봉움직임 확인")
     except Exception as e:    
         print("raise error ", e)
 

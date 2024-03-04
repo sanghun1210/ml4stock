@@ -50,8 +50,14 @@ def pattern4_check(df) :
     return False
 
 def pattern5_check(df) :
-    slow_k, slow_d = algorithms.stc_slow(df, 10, 5, 5)
-    if slow_d.iloc[-1] < 35 :
+    slow_k, slow_d = algorithms.stc_slow(df, 9, 3, 3)
+    if slow_d.iloc[-1] < 32 :
+        return True
+    return False
+
+def pattern6_check(df) :
+    slow_k, slow_d = algorithms.stc_slow(df, 14, 5, 5)
+    if slow_d.iloc[-1] < 35 and slow_k.iloc[-1] > slow_d.iloc[-1] and slow_k.iloc[-1] > slow_k.iloc[-3] and slow_k.iloc[-1] < 45:
         return True
     return False
 
