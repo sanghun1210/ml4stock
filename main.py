@@ -67,7 +67,7 @@ def get_fund_score(ticker):
 
     roe_category_score = 0
     if (fa.get_biz_category_roe() < roe_annual_lst[-1]):
-        roe_category_score += 80
+        roe_category_score += 100
 
     logger.info("eps_scores : " + str(eps_annual_score) + " " + str(eps_quater_score) + " " +  str(eps_category_score))
     logger.info("roe_scores : " + str(roe_annual_score) + " " + str(roe_quater_score) + " " +  str(roe_category_score))
@@ -84,11 +84,11 @@ def get_fund_score(ticker):
         '업종EPS비교': 0.3,
         '연간EPS': 0.2,
         '분기EPS': 0.35,
-        '업종ROE비교': 0.3,
-        '연간ROE': 0.15,
-        '분기ROE': 0.25,
+        '업종ROE비교': 0.15,
+        '연간ROE': 0.2,
+        '분기ROE': 0.2,
         '연간부채비율': -0.1,  # 부채비율은 낮을수록 좋으므로 가중치를 음수로 설정
-        '분기별부채비율': -0.15
+        '분기별부채비율': -0.1
     }
     w_score = fa.calculate_weighted_score(data,weights)
     logger.info("weighted_scroe : " + str(w_score))
@@ -100,7 +100,7 @@ def run_strategies(ticker, result_list):
         logger.setLevel(logging.INFO)
         score = get_fund_score(ticker)
         print(score)
-        if score < 90 :
+        if score < 85 :
             return
         
         start, end = get_period()
@@ -109,7 +109,7 @@ def run_strategies(ticker, result_list):
             return 
         
         if technical_analysis.pattern4_check(data_handler.get_weekly_data()) :
-            logger.info("pattern4_check pass")
+            logger.info("pattern4_check ok")
             if technical_analysis.pattern5_check(data_handler.get_daily_data()) :
                 logger.info("pattern5_check pass")
                 name = stock.get_market_ticker_name(ticker)

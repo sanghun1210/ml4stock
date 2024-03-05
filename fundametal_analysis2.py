@@ -245,7 +245,7 @@ def main():
     # # roe = fa.get_current_roe_from_naver()
     # # print(roe)
 
-    test=FundamentalAnalysis2("263810")
+    test=FundamentalAnalysis2("042370")
     dte_annual_lst = test.get_dte_list_frequency_annual()
     dte_quater_lst = test.get_dte_list_frequency_quarter()
     eps_annual_lst = test.get_eps_list_frequency_annual()

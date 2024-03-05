@@ -50,15 +50,16 @@ def pattern4_check(df) :
     return False
 
 def pattern5_check(df) :
-    slow_k, slow_d = algorithms.stc_slow(df, 9, 3, 3)
+    slow_k, slow_d = algorithms.stc_slow(df, 14, 3, 3)
     if slow_d.iloc[-1] < 32 :
         return True
     return False
 
 def pattern6_check(df) :
-    slow_k, slow_d = algorithms.stc_slow(df, 14, 5, 5)
-    if slow_d.iloc[-1] < 35 and slow_k.iloc[-1] > slow_d.iloc[-1] and slow_k.iloc[-1] > slow_k.iloc[-3] and slow_k.iloc[-1] < 45:
-        return True
+    df['SMA200'] = df['trade_price'].rolling(window=200).mean()
+    if df['SMA200'].iloc[-1] < df['trade_price'].iloc[-1]:
+        if algorithms.get_current_rsi(df, 20) <= 50 :
+            return True
     return False
 
 def value_check(weekly_df, good_value) :
