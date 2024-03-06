@@ -66,8 +66,7 @@ def get_fund_score(ticker):
         eps_category_score += 100
 
     roe_category_score = 0
-    if (fa.get_biz_category_roe() < roe_annual_lst[-1]):
-        roe_category_score += 100
+    roe_category_score = fa.caculate_roe_category_score(fa.get_biz_category_roe(), roe_annual_lst[-1])
 
     logger.info("eps_scores : " + str(eps_annual_score) + " " + str(eps_quater_score) + " " +  str(eps_category_score))
     logger.info("roe_scores : " + str(roe_annual_score) + " " + str(roe_quater_score) + " " +  str(roe_category_score))
@@ -100,7 +99,7 @@ def run_strategies(ticker, result_list):
         logger.setLevel(logging.INFO)
         score = get_fund_score(ticker)
         print(score)
-        if score < 85 :
+        if score < 90 :
             return
         
         start, end = get_period()

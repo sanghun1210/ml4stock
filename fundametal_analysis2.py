@@ -75,8 +75,8 @@ class FundamentalAnalysis2(object):
             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
             res = requests.get(url, headers=headers)
             self.soup = BeautifulSoup(res.text, 'html.parser')
-
-            cop = self.soup.select_one('#highlight_D_A > table')
+#highlight_B_A
+            cop = self.soup.select_one('#highlight_B_A')
             self.df = pd.read_html(cop.prettify())[0]
             self.table_token = self.df.columns[0][0]
         except Exception as e:
@@ -97,7 +97,7 @@ class FundamentalAnalysis2(object):
             data = eps_df['Annual']
 
             #특정 열에서 결측값 제거
-            data.dropna(axis=1)
+            data = data.dropna(axis=1)
             return [x for x in data.iloc[0].tolist() if not math.isnan(x)]
         except Exception as e:
             print("Error : ", e)   
@@ -113,7 +113,7 @@ class FundamentalAnalysis2(object):
             data = eps_df['Net Quarter']
 
             #특정 열에서 결측값 제거
-            data.dropna(axis=1)
+            data = data.dropna(axis=1)
             return [x for x in data.iloc[0].tolist() if not math.isnan(x)]
         except Exception as e:
             print("Error : ", e)   
@@ -128,7 +128,7 @@ class FundamentalAnalysis2(object):
             data = eps_df['Annual']
 
             #특정 열에서 결측값 제거
-            data.dropna(axis=1)
+            data = data.dropna(axis=1)
             return [x for x in data.iloc[0].tolist() if not math.isnan(x)]
         except Exception as e:
             print("Error : ", e)   
@@ -144,7 +144,7 @@ class FundamentalAnalysis2(object):
             data = eps_df['Net Quarter']
 
             #특정 열에서 결측값 제거
-            data.dropna(axis=1)
+            data = data.dropna(axis=1)
             return [x for x in data.iloc[0].tolist() if not math.isnan(x)]
         except Exception as e:
             print("Error : ", e)   
@@ -224,12 +224,36 @@ class FundamentalAnalysis2(object):
     
     def get_roe_score(self, lst):
         score = 0
-        if self.is_last_item_largest(lst) :
+        print(lst)
+        average = sum(lst) / len(lst)
+
+        if lst[-1] > average :
             score += 50
         if self.is_sequentially_increasing(lst):
-            score += 50
+            score += 25
+        if self.is_last_item_largest(lst) :
+            score += 25
         return score
     
+    def caculate_roe_category_score(self, category_roe, stork_roe):
+        if stork_roe < category_roe:
+            return 0
+        
+        percent_difference = ((stork_roe - category_roe) / category_roe) * 100
+        if percent_difference >= 30:
+            return 100
+        elif percent_difference >= 15:
+            return 70
+        else:
+            return 50
+        
+    def get_biz_category(self):
+        cop = self.soup.select_one('#upTabDivD')
+        df = pd.read_html(cop.prettify())[0]
+
+        table_token = df.columns[0]
+        return df.columns[2]
+        
 def main():
     # current_date = datetime.now()
     # result_date = current_date - timedelta(days=450)
@@ -245,7 +269,8 @@ def main():
     # # roe = fa.get_current_roe_from_naver()
     # # print(roe)
 
-    test=FundamentalAnalysis2("042370")
+    test=FundamentalAnalysis2("069730")
+    ss = test.get_biz_category()
     dte_annual_lst = test.get_dte_list_frequency_annual()
     dte_quater_lst = test.get_dte_list_frequency_quarter()
     eps_annual_lst = test.get_eps_list_frequency_annual()
@@ -273,8 +298,7 @@ def main():
         eps_category_score += 100
 
     roe_category_score = 0
-    if (test.get_biz_category_roe() < roe_annual_lst[-1]):
-        roe_category_score += 80
+    roe_category_score = test.caculate_roe_category_score(test.get_biz_category_roe(), roe_annual_lst[-1])
 
     print("eps : ", eps_annual_score, eps_quater_score, eps_category_score)
     print("roe : ", roe_annual_score, roe_quater_score, roe_category_score)
@@ -289,17 +313,15 @@ def main():
     weights = {
         '업종EPS비교': 0.3,
         '연간EPS': 0.2,
-        '분기EPS': 0.4,
-        '업종ROE비교': 0.3,
-        '연간ROE': 0.15,
-        '분기ROE': 0.25,
+        '분기EPS': 0.35,
+        '업종ROE비교': 0.15,
+        '연간ROE': 0.2,
+        '분기ROE': 0.2,
         '연간부채비율': -0.1,  # 부채비율은 낮을수록 좋으므로 가중치를 음수로 설정
-        '분기별부채비율': -0.15
+        '분기별부채비율': -0.1
     }
     print(test.calculate_weighted_score(data,weights))
          
-    
-
 
 if __name__ == "__main__":
     # execute only if run as a script

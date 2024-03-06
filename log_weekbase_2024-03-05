@@ -8836,3 +8836,764 @@ INFO:get_fund_score():eps_scores : 100 0 0
 INFO:get_fund_score():roe_scores : 0 50 0
 INFO:get_fund_score():weighted_scroe : 30.0
 INFO:main():[2462] : 170790 ...
+INFO:get_fund_score():eps_scores : 50 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 62.5
+INFO:main():[2463] : 049120 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2464] : 038950 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2465] : 441270 ...
+INFO:main():[2466] : 106240 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2467] : 131760 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2468] : 065690 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2469] : 140860 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 75.0
+INFO:main():[2470] : 091700 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2471] : 032800 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2472] : 318010 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 32.5
+INFO:main():[2473] : 027710 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 0.0
+INFO:main():[2474] : 225590 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2475] : 054300 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2476] : 068050 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2477] : 222110 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2478] : 271830 ...
+INFO:main():[2479] : 263750 ...
+INFO:get_fund_score():eps_scores : 50 0 100
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 50.0
+INFO:main():[2480] : 251970 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 65.0
+INFO:main():[2481] : 168360 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2482] : 087010 ...
+INFO:get_fund_score():eps_scores : 50 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 47.5
+INFO:main():[2483] : 119500 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2484] : 389140 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2485] : 105760 ...
+INFO:main():[2486] : 009520 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2487] : 189690 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 50 100
+INFO:get_fund_score():weighted_scroe : 60.0
+INFO:main():[2488] : 318020 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 57.5
+INFO:main():[2489] : 256630 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2490] : 331380 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 72.5
+INFO:main():[2491] : 472850 ...
+INFO:main():[2492] : 039980 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2493] : 234100 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2494] : 041020 ...
+INFO:get_fund_score():eps_scores : 100 50 100
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2495] : 114630 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2496] : 290720 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 0.0
+INFO:main():[2497] : 005670 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 25.0
+INFO:main():[2498] : 094940 ...
+INFO:get_fund_score():eps_scores : 100 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2499] : 007330 ...
+INFO:get_fund_score():eps_scores : 0 50 100
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2500] : 093380 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2501] : 023900 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 40.0
+INFO:main():[2502] : 371950 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2503] : 370090 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2504] : 445180 ...
+INFO:main():[2505] : 220100 ...
+INFO:get_fund_score():eps_scores : 50 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 27.5
+INFO:main():[2506] : 035200 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2507] : 334970 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2508] : 321260 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2509] : 053610 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 32.5
+INFO:main():[2510] : 303360 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2511] : 377220 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 32.5
+INFO:main():[2512] : 335810 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2513] : 053160 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2514] : 405000 ...
+INFO:main():[2515] : 041590 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2516] : 367000 ...
+INFO:get_fund_score():eps_scores : 0 50 100
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2517] : 075130 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 30.0
+INFO:main():[2518] : 237820 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2519] : 023770 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2520] : 300080 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2521] : 032580 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2522] : 051380 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2523] : 241820 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 65.0
+INFO:main():[2524] : 237750 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2525] : 319660 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 50 100
+INFO:get_fund_score():weighted_scroe : 25.0
+INFO:main():[2526] : 031980 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 50.0
+INFO:main():[2527] : 002230 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 0.0
+INFO:main():[2528] : 057880 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2529] : 043370 ...
+INFO:get_fund_score():eps_scores : 100 50 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2530] : 239890 ...
+INFO:main():[2531] : 347740 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 50.0
+INFO:main():[2532] : 137400 ...
+INFO:get_fund_score():eps_scores : 50 100 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 90.0
+INFO:main():[2533] : 257370 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2534] : 147760 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2535] : 128660 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2536] : 006140 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2537] : 376180 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2538] : 304840 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2539] : 062970 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 50 100 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2540] : 087600 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2541] : 291810 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2542] : 378340 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2543] : 161580 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2544] : 347770 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2545] : 163730 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 0 50 100
+INFO:get_fund_score():weighted_scroe : 75.0
+INFO:main():[2546] : 417180 ...
+INFO:main():[2547] : 446750 ...
+INFO:main():[2548] : 448370 ...
+INFO:main():[2549] : 454750 ...
+INFO:main():[2550] : 454640 ...
+INFO:main():[2551] : 469880 ...
+INFO:main():[2552] : 469900 ...
+INFO:main():[2553] : 406760 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2554] : 418170 ...
+INFO:main():[2555] : 430230 ...
+INFO:main():[2556] : 435620 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2557] : 299030 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2558] : 067310 ...
+INFO:get_fund_score():eps_scores : 50 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 42.5
+INFO:main():[2559] : 166090 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2560] : 136480 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2561] : 003380 ...
+INFO:get_fund_score():eps_scores : 0 50 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 62.5
+INFO:main():[2562] : 101670 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2563] : 365590 ...
+INFO:main():[2564] : 149980 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 80.0
+INFO:main():[2565] : 013030 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 85.0
+INFO:main():[2566] : 126700 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 85.0
+INFO:main():[2567] : 106080 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 50 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2568] : 400840 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2569] : 450050 ...
+INFO:main():[2570] : 221840 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2571] : 106190 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2572] : 373200 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2573] : 066130 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2574] : 004590 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2575] : 039340 ...
+INFO:get_fund_score():eps_scores : 0 0 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2576] : 034950 ...
+INFO:get_fund_score():eps_scores : 0 50 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 62.5
+INFO:main():[2577] : 222980 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2578] : 256840 ...
+INFO:get_fund_score():eps_scores : 100 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2579] : 025550 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2580] : 017890 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2581] : 080720 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 50 0 0
+INFO:get_fund_score():weighted_scroe : 30.0
+INFO:main():[2582] : 063570 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2583] : 041460 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 32.5
+INFO:main():[2584] : 101680 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2585] : 039740 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 70.0
+INFO:main():[2586] : 053300 ...
+INFO:get_fund_score():eps_scores : 50 0 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2587] : 025770 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 75.0
+INFO:main():[2588] : 436610 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2589] : 458610 ...
+INFO:main():[2590] : 464440 ...
+INFO:main():[2591] : 023760 ...
+INFO:get_fund_score():eps_scores : 100 100 0
+INFO:get_fund_score():roe_scores : 100 50 100
+INFO:get_fund_score():weighted_scroe : 100.0
+INFO:main():[2592] : 054040 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2593] : 021650 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2594] : 053590 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2595] : 032300 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2596] : 037230 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2597] : 030520 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 25.0
+INFO:main():[2598] : 052600 ...
+INFO:get_fund_score():eps_scores : 100 50 100
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 122.5
+INFO:main():[2599] : 256150 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2600] : 092460 ...
+INFO:get_fund_score():eps_scores : 100 50 100
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 102.5
+INFO:main():[2601] : 452190 ...
+INFO:main():[2602] : 047080 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2603] : 452280 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2604] : 066980 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2605] : 114810 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2606] : 070590 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2607] : 226440 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 0.0
+INFO:main():[2608] : 042520 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2609] : 430690 ...
+INFO:get_fund_score():eps_scores : 0 0 100
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 65.0
+INFO:main():[2610] : 078350 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 50.0
+INFO:main():[2611] : 045100 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 75.0
+INFO:main():[2612] : 091440 ...
+INFO:get_fund_score():eps_scores : 100 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2613] : 024740 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2614] : 005860 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 50.0
+INFO:main():[2615] : 123840 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2616] : 007770 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2617] : 198940 ...
+INFO:main():[2618] : 079170 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2619] : 054920 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2620] : 002680 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 30.0
+INFO:main():[2621] : 386580 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2622] : 430460 ...
+INFO:main():[2623] : 455310 ...
+INFO:main():[2624] : 034810 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 32.5
+INFO:main():[2625] : 03481K ...
+INFO:main():[2626] : 076610 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 50 100 0
+INFO:get_fund_score():weighted_scroe : 67.5
+INFO:main():[2627] : 059270 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2628] : 220180 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2629] : 900270 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2630] : 214180 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 75.0
+INFO:main():[2631] : 234340 ...
+INFO:get_fund_score():eps_scores : 0 0 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2632] : 084990 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 30.0
+INFO:main():[2633] : 170030 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2634] : 319400 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 52.5
+INFO:main():[2635] : 048410 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2636] : 052260 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2637] : 041440 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 50 0 100
+INFO:get_fund_score():weighted_scroe : 25.0
+INFO:main():[2638] : 039010 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2639] : 090850 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 15.0
+INFO:main():[2640] : 460930 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 57.5
+INFO:main():[2641] : 092300 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 50 100 0
+INFO:get_fund_score():weighted_scroe : 67.5
+INFO:main():[2642] : 138360 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2643] : 011080 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 100 0 0
+INFO:get_fund_score():weighted_scroe : 40.0
+INFO:main():[2644] : 060560 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 72.5
+INFO:main():[2645] : 064240 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 17.5
+INFO:main():[2646] : 039610 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2647] : 126640 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 50 100 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2648] : 127980 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 70.0
+INFO:main():[2649] : 061250 ...
+INFO:get_fund_score():eps_scores : 0 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 37.5
+INFO:main():[2650] : 097870 ...
+INFO:get_fund_score():eps_scores : 0 100 0
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2651] : 290270 ...
+INFO:get_fund_score():eps_scores : 50 100 100
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 85.0
+INFO:main():[2652] : 353190 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2653] : 192410 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2654] : 090710 ...
+INFO:get_fund_score():eps_scores : 50 100 0
+INFO:get_fund_score():roe_scores : 0 0 0
+INFO:get_fund_score():weighted_scroe : 45.0
+INFO:main():[2655] : 078590 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 100
+INFO:get_fund_score():weighted_scroe : 92.5
+INFO:main():[2656] : 205470 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 50 100
+INFO:get_fund_score():weighted_scroe : 25.0
+INFO:main():[2657] : 115160 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 0 50 0
+INFO:get_fund_score():weighted_scroe : 10.0
+INFO:main():[2658] : 028080 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 50 50 0
+INFO:get_fund_score():weighted_scroe : 20.0
+INFO:main():[2659] : 200670 ...
+INFO:get_fund_score():eps_scores : 100 50 100
+INFO:get_fund_score():roe_scores : 50 100 100
+INFO:get_fund_score():weighted_scroe : 112.5
+INFO:main():[2660] : 065510 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2661] : 215090 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 50 100 100
+INFO:get_fund_score():weighted_scroe : 82.5
+INFO:main():[2662] : 263920 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 100 0
+INFO:get_fund_score():weighted_scroe : 77.5
+INFO:main():[2663] : 243070 ...
+INFO:get_fund_score():eps_scores : 50 0 100
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 55.0
+INFO:main():[2664] : 084110 ...
+INFO:get_fund_score():eps_scores : 100 100 100
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 105.0
+INFO:run_strategies():pattern6_check pass
+INFO:main():[2665] : 145020 ...
+INFO:get_fund_score():eps_scores : 100 0 100
+INFO:get_fund_score():roe_scores : 0 100 100
+INFO:get_fund_score():weighted_scroe : 85.0
+INFO:main():[2666] : 024060 ...
+INFO:get_fund_score():eps_scores : 50 50 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 47.5
+INFO:main():[2667] : 010240 ...
+INFO:get_fund_score():eps_scores : 100 0 0
+INFO:get_fund_score():roe_scores : 0 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2668] : 189980 ...
+INFO:get_fund_score():eps_scores : 0 0 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 35.0
+INFO:main():[2669] : 037440 ...
+INFO:get_fund_score():eps_scores : 100 50 0
+INFO:get_fund_score():roe_scores : 100 0 100
+INFO:get_fund_score():weighted_scroe : 72.5
+INFO:main():[2670] : 238490 ...
+INFO:get_fund_score():eps_scores : 50 0 0
+INFO:get_fund_score():roe_scores : 0 100 0
+INFO:get_fund_score():weighted_scroe : 30.0
