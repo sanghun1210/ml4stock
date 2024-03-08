@@ -42,19 +42,17 @@ def get_fund_score(ticker):
     logger = logging.getLogger('get_fund_score()')
     logger.setLevel(logging.INFO)
     fa=FundamentalAnalysis2(ticker)
-    quater_data = fa.get_eps_list_frequency_quarter()
-    annual_data = fa.get_eps_list_frequency_annual()
-
-    if quater_data == None or annual_data == None:
-        return 0
     
-    dte_annual_lst = fa.get_dte_list_frequency_annual()
-    dte_quater_lst = fa.get_dte_list_frequency_quarter()
-    eps_annual_lst = fa.get_eps_list_frequency_annual()
-    eps_quater_lst = fa.get_eps_list_frequency_quarter()
-    roe_annual_lst = fa.get_roe_list_frequency_annual()
-    roe_quater_lst = fa.get_roe_list_frequency_quarter()
+    eps_annual_lst = fa.get_data_lst_by("Annual", "EPS  (원)")
+    eps_quater_lst = fa.get_data_lst_by("Net Quarter", "EPS  (원)")
+    roe_annual_lst = fa.get_data_lst_by("Annual", "ROE")
+    roe_quater_lst = fa.get_data_lst_by("Net Quarter", "ROE")
+    dte_annual_lst = fa.get_data_lst_by("Annual", "부채비율")
+    dte_quater_lst = fa.get_data_lst_by("Net Quarter", "부채비율")
 
+    if eps_annual_lst == None or len(eps_annual_lst) == 0:
+        return 0, None
+    
     eps_annual_score = fa.get_eps_score(eps_annual_lst)
     eps_quater_score = fa.get_eps_score(eps_quater_lst)
 
@@ -66,8 +64,7 @@ def get_fund_score(ticker):
         eps_category_score += 100
 
     roe_category_score = 0
-    if (fa.get_biz_category_roe() < roe_annual_lst[-1]):
-        roe_category_score += 100
+    roe_category_score = fa.caculate_roe_category_score(fa.get_biz_category_roe(), roe_annual_lst[-1])
 
     logger.info("eps_scores : " + str(eps_annual_score) + " " + str(eps_quater_score) + " " +  str(eps_category_score))
     logger.info("roe_scores : " + str(roe_annual_score) + " " + str(roe_quater_score) + " " +  str(roe_category_score))
@@ -77,30 +74,32 @@ def get_fund_score(ticker):
          '분기EPS' : eps_quater_score,
          '업종ROE비교' : roe_category_score, 
          '연간ROE' : roe_annual_score,
-         '분기ROE' : roe_quater_score
+         '분기ROE' : roe_quater_score,
+         '연간부채비율': fa.debt_to_score(dte_annual_lst), 
+         '분기별부채비율': fa.debt_to_score(dte_quater_lst)
         }
     
-    weights = {
-        '업종EPS비교': 0.3,
-        '연간EPS': 0.2,
-        '분기EPS': 0.35,
-        '업종ROE비교': 0.15,
-        '연간ROE': 0.2,
-        '분기ROE': 0.2,
-        '연간부채비율': -0.1,  # 부채비율은 낮을수록 좋으므로 가중치를 음수로 설정
-        '분기별부채비율': -0.1
+    adjusted_weights = {
+        '업종EPS비교': 0.25,  # 업종 내 경쟁력 평가의 중요성을 반영하여 증가
+        '연간EPS': 0.25,  # 장기 성장성 평가의 중요성을 반영하여 증가
+        '분기EPS': 0.15,  # 단기 지표의 중요성을 감소
+        '업종ROE비교': 0.2,  # 업종 내 경쟁력 평가의 중요성을 반영하여 증가
+        '연간ROE': 0.25,  # 장기 성장성 평가의 중요성을 반영하여 증가
+        '분기ROE': 0.12,  # 단기 지표의 중요성을 감소
+        '연간부채비율': 0.07,  # 부채비율의 음수 가중치는 유지
+        '분기별부채비율': 0.03  # 부채비율의 음수 가중치는 유지
     }
-    w_score = fa.calculate_weighted_score(data,weights)
+    w_score = fa.calculate_weighted_score(data, adjusted_weights)
     logger.info("weighted_scroe : " + str(w_score))
-    return w_score
+    return w_score, fa.get_biz_category()
 
 def run_strategies(ticker, result_list):
     try:
         logger = logging.getLogger('run_strategies()')
         logger.setLevel(logging.INFO)
-        score = get_fund_score(ticker)
+        score, biz_category = get_fund_score(ticker)
         print(score)
-        if score < 95 :
+        if score < 92 :
             return
         
         start, end = get_period()
@@ -113,7 +112,7 @@ def run_strategies(ticker, result_list):
                 logger.info("pattern6_check pass")
                 name = stock.get_market_ticker_name(ticker)
                 #print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-                result_list.append(ticker + ' p1 : ' + name )
+                result_list.append(ticker + ' : ' + name + ' [' + biz_category + ']')
                 print('p1 pass')
     except Exception as e:
         print(e)
