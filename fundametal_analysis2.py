@@ -2,12 +2,12 @@ from pykrx import stock
 from pykrx import bond
 from datetime import datetime, timedelta
 import pandas as pd
-import FinanceDataReader as fdr
 
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 import requests
 import math
+from io import StringIO
 
 
 class FundamentalAnalysis2(object):
@@ -77,12 +77,12 @@ class FundamentalAnalysis2(object):
             self.soup = BeautifulSoup(res.text, 'html.parser')
 
             cop = self.soup.select_one('#highlight_D_A')
-            self.df = pd.read_html(cop.prettify())[0]
+            self.df = pd.read_html(StringIO(cop.prettify()))[0]
             self.table_token = self.df.columns[0][0]
 
             if len(self.get_data_lst_by("Net Quarter", "EPS  (원)")) == 0:
                 cop = self.soup.select_one('#highlight_B_A')
-                self.df = pd.read_html(cop.prettify())[0]
+                self.df = pd.read_html(StringIO(cop.prettify()))[0]
                 self.table_token = self.df.columns[0][0]
 
         except Exception as e:
@@ -124,7 +124,7 @@ class FundamentalAnalysis2(object):
     # 업종 eps 가져오기    
     def get_biz_category_eps(self):
         cop = self.soup.select_one('#upTabDivD')
-        df = pd.read_html(cop.prettify())[0]
+        df = pd.read_html(StringIO(cop.prettify()))[0]
 
         table_token = df.columns[0]
         eps_df = df.loc[df[table_token ]=="EPS  (원)"]
@@ -134,7 +134,7 @@ class FundamentalAnalysis2(object):
     # 업종 ROE 보다 높아야 한다.
     def get_biz_category_roe(self):
         cop = self.soup.select_one('#upTabDivD')
-        df = pd.read_html(cop.prettify())[0]
+        df = pd.read_html(StringIO(cop.prettify()))[0]
 
         table_token = df.columns[0]
         eps_df = df.loc[df[table_token ]=="ROE"]
@@ -155,11 +155,33 @@ class FundamentalAnalysis2(object):
         
         average = sum(lst) / len(lst)
         if lst[-1] > average :
-            score += 40
+            score += 50
         if self.is_last_item_largest(lst) :
-            score += 30
+            score += 25
         if self.check_increase_by_10_percent(lst) :
-            score += 30
+            score += 25
+        return score
+    
+    def get_eps_quater_score(self, lst):
+        score = 0
+
+        if sum(lst) == 0:
+            return 50
+
+        final_value = lst[-1]
+        initial_value = lst[-2]
+
+        percentage_increase = ((final_value - initial_value) / abs(initial_value)) * 100
+        if percentage_increase > 300:
+            return 100
+        
+        average = sum(lst) / len(lst)
+        if lst[-1] > average :
+            score += 50
+        if self.is_last_item_largest(lst) :
+            score += 25
+        if self.check_increase_by_10_percent(lst) :
+            score += 25
         return score
     
     def get_roe_score(self, lst):
@@ -212,70 +234,94 @@ class FundamentalAnalysis2(object):
         else:
             score += 0
         return score
-        
-        
-        
-def main():
-    test=FundamentalAnalysis2("079550")
-
-    eps_annual_lst = test.get_data_lst_by("Annual", "EPS  (원)")
-    eps_quater_lst = test.get_data_lst_by("Net Quarter", "EPS  (원)")
-    roe_annual_lst = test.get_data_lst_by("Annual", "ROE")
-    roe_quater_lst = test.get_data_lst_by("Net Quarter", "ROE")
-    dte_annual_lst = test.get_data_lst_by("Annual", "부채비율")
-    dte_quater_lst = test.get_data_lst_by("Net Quarter", "부채비율")
-
-    print(dte_annual_lst)
-    print(dte_quater_lst)
-    print(eps_annual_lst)
-    print(eps_quater_lst)
-    print("roe annual list :", roe_annual_lst)
-    print("roe quater list :", roe_quater_lst)
-
-    print(test.get_biz_category_eps())
-    print(test.get_biz_category())
-
-    eps_annual_score = test.get_eps_score(eps_annual_lst)
-    eps_quater_score = test.get_eps_score(eps_quater_lst)
-
-    roe_annual_score = test.get_roe_score(roe_annual_lst)
-    roe_quater_score = test.get_roe_score(roe_quater_lst)
-
-    eps_category_score = 0
-    if (test.get_biz_category_eps() < eps_annual_lst[-1]):
-        eps_category_score += 100
-
-    roe_category_score = 0
-    print("roe_ categroy : ", test.get_biz_category_roe())
-    print("roe_ annual [-1] : ", roe_annual_lst[-1])
-    roe_category_score = test.caculate_roe_category_score(test.get_biz_category_roe(), roe_annual_lst[-1])
-
-    print("eps : ", eps_annual_score, eps_quater_score, eps_category_score)
-    print("roe : ", roe_annual_score, roe_quater_score, roe_category_score)
-    print("dept annal : ", test.debt_to_score(dte_annual_lst))
-    print("dept quater : ", test.debt_to_score(dte_quater_lst))
-    data = {'업종EPS비교' : eps_category_score, 
-         '연간EPS' : eps_annual_score, 
-         '분기EPS' : eps_quater_score,
-         '업종ROE비교' : roe_category_score, 
-         '연간ROE' : roe_annual_score,
-         '분기ROE' : roe_quater_score,
-         '연간부채비율': test.debt_to_score(dte_annual_lst), # 부채비율은 낮을수록 좋으므로 가중치를 음수로 설정
-         '분기별부채비율': test.debt_to_score(dte_quater_lst)
-        }
     
-    weights = {
-        '업종EPS비교': 0.2,
-        '연간EPS': 0.25,
-        '분기EPS': 0.25,
-        '업종ROE비교': 0.2,
-        '연간ROE': 0.2,
-        '분기ROE': 0.25,
-        '연간부채비율': 0.05,  
-        '분기별부채비율': 0.05
-    }
-    print(test.calculate_weighted_score(data,weights))
-         
+    def find_pbr(self):
+        try:
+            cop = self.soup.select_one('#corp_group2 > dl:nth-child(4) > dd')
+            pbr = float(cop.get_text())
+            return pbr
+        except Exception as e:
+            print('find_pbr : ', e)
+            return None
+        
+
+    def find_per(self):
+        cop = self.soup.select_one('#corp_group2 > dl:nth-child(4) > dd')
+        str = cop.get_text()
+        print(str)
+        #corp_group2 > dl:nth-child(4) > dd
+    
+
+    #eps가 높고, roe가 높은 주식
+    def estimate_basic_measure(self):
+        eps_annual_lst = self.get_data_lst_by("Annual", "EPS  (원)")
+        eps_quater_lst = self.get_data_lst_by("Net Quarter", "EPS  (원)")
+        roe_annual_lst = self.get_data_lst_by("Annual", "ROE")
+        roe_quater_lst = self.get_data_lst_by("Net Quarter", "ROE")
+        dte_annual_lst = self.get_data_lst_by("Annual", "부채비율")
+        dte_quater_lst = self.get_data_lst_by("Net Quarter", "부채비율")
+
+        if eps_annual_lst == None or len(eps_annual_lst) == 0:
+            return 0
+
+        # print(dte_annual_lst)
+        # print(dte_quater_lst)
+        # print(eps_annual_lst)
+        # print(eps_quater_lst)
+        # print("roe annual list :", roe_annual_lst)
+        # print("roe quater list :", roe_quater_lst)
+
+        # print(self.get_biz_category_eps())
+        # print(self.get_biz_category())
+
+        eps_annual_score = self.get_eps_score(eps_annual_lst)
+        eps_quater_score = self.get_eps_quater_score(eps_quater_lst)
+        roe_annual_score = self.get_roe_score(roe_annual_lst)
+        roe_quater_score = self.get_roe_score(roe_quater_lst)
+
+        eps_category_score = 0
+        if (self.get_biz_category_eps() < eps_annual_lst[-1]):
+            eps_category_score += 100
+
+        roe_category_score = 0
+        # print("roe_ categroy : ", self.get_biz_category_roe())
+        # print("roe_ annual [-1] : ", roe_annual_lst[-1])
+        roe_category_score = self.caculate_roe_category_score(self.get_biz_category_roe(), roe_annual_lst[-1])
+
+        if eps_category_score == 0:
+            pbr = self.find_pbr()
+            if pbr <= 1 :  
+                eps_category_score = 100
+
+        #print("eps annal, quater, category : ", eps_annual_score, eps_quater_score, eps_category_score)
+        #print("roe annal, quater, category : ", roe_annual_score, roe_quater_score, roe_category_score)
+        # print("dept annal : ", self.debt_to_score(dte_annual_lst))
+        # print("dept quater : ", self.debt_to_score(dte_quater_lst))
+        data = {'업종EPS비교' : eps_category_score, 
+            '연간EPS' : eps_annual_score, 
+            '분기EPS' : eps_quater_score,
+            '업종ROE비교' : roe_category_score, 
+            '연간ROE' : roe_annual_score,
+            '분기ROE' : roe_quater_score,
+            '연간부채비율': self.debt_to_score(dte_annual_lst), # 부채비율은 낮을수록 좋으므로 가중치를 음수로 설정
+            '분기별부채비율': self.debt_to_score(dte_quater_lst)
+            }
+        
+        weights = {
+            '업종EPS비교': 0.2,
+            '연간EPS': 0.25,
+            '분기EPS': 0.25,
+            '업종ROE비교': 0.2,
+            '연간ROE': 0.2,
+            '분기ROE': 0.25,
+            '연간부채비율': 0.05,  
+            '분기별부채비율': 0.05
+        }
+        return self.calculate_weighted_score(data,weights)
+    
+def main():
+    test=FundamentalAnalysis2("222080")
+    print(test.estimate_basic_measure())
 
 if __name__ == "__main__":
     # execute only if run as a script

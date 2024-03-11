@@ -42,54 +42,10 @@ def get_fund_score(ticker):
     logger = logging.getLogger('get_fund_score()')
     logger.setLevel(logging.INFO)
     fa=FundamentalAnalysis2(ticker)
-    
-    eps_annual_lst = fa.get_data_lst_by("Annual", "EPS  (원)")
-    eps_quater_lst = fa.get_data_lst_by("Net Quarter", "EPS  (원)")
-    roe_annual_lst = fa.get_data_lst_by("Annual", "ROE")
-    roe_quater_lst = fa.get_data_lst_by("Net Quarter", "ROE")
-    dte_annual_lst = fa.get_data_lst_by("Annual", "부채비율")
-    dte_quater_lst = fa.get_data_lst_by("Net Quarter", "부채비율")
-
-    if eps_annual_lst == None or len(eps_annual_lst) == 0:
+    w_score = fa.estimate_basic_measure()
+    if w_score == 0:
         return 0, None
     
-    eps_annual_score = fa.get_eps_score(eps_annual_lst)
-    eps_quater_score = fa.get_eps_score(eps_quater_lst)
-
-    roe_annual_score = fa.get_roe_score(roe_annual_lst)
-    roe_quater_score = fa.get_roe_score(roe_quater_lst)
-
-    eps_category_score = 0
-    if (fa.get_biz_category_eps() < eps_annual_lst[-1]):
-        eps_category_score += 100
-
-    roe_category_score = 0
-    roe_category_score = fa.caculate_roe_category_score(fa.get_biz_category_roe(), roe_annual_lst[-1])
-
-    logger.info("eps_scores : " + str(eps_annual_score) + " " + str(eps_quater_score) + " " +  str(eps_category_score))
-    logger.info("roe_scores : " + str(roe_annual_score) + " " + str(roe_quater_score) + " " +  str(roe_category_score))
-
-    data = {'업종EPS비교' : eps_category_score, 
-         '연간EPS' : eps_annual_score, 
-         '분기EPS' : eps_quater_score,
-         '업종ROE비교' : roe_category_score, 
-         '연간ROE' : roe_annual_score,
-         '분기ROE' : roe_quater_score,
-         '연간부채비율': fa.debt_to_score(dte_annual_lst), 
-         '분기별부채비율': fa.debt_to_score(dte_quater_lst)
-        }
-    
-    weights = {
-        '업종EPS비교': 0.2,
-        '연간EPS': 0.25,
-        '분기EPS': 0.25,
-        '업종ROE비교': 0.2,
-        '연간ROE': 0.2,
-        '분기ROE': 0.25,
-        '연간부채비율': 0.05,  
-        '분기별부채비율': 0.05
-    }
-    w_score = fa.calculate_weighted_score(data,weights)
     logger.info("weighted_scroe : " + str(w_score))
     return w_score, fa.get_biz_category()
 
@@ -99,7 +55,7 @@ def run_strategies(ticker, result_list):
         logger.setLevel(logging.INFO)
         score, biz_category = get_fund_score(ticker)
         print(score)
-        if score < 90 :
+        if score < 95 :
             return
         
         start, end = get_period()
