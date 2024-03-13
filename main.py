@@ -12,6 +12,7 @@ from data_handler import StockDataHandler
 from backtest_long_only import BacktestLongOnly
 from fundametal_analysis import FundamentalAnalysis, FundamentalSector
 from fundametal_analysis2 import FundamentalAnalysis2
+from fundametal_analysis3 import FundamentalAnalysis3
 
 import logging
 
@@ -35,14 +36,15 @@ def get_tickers(market):
     except Exception as e:    
         print("raise error ", e)
 
-# 높은 ROE와 EPS
-# 수익성 및 효율성: 높은 ROE는 기업이 자본을 효율적으로 사용하여 높은 수익을 창출하고 있음을 의미합니다. 
-# 또한, 높은 EPS는 기업이 주당 높은 순이익을 기록하고 있음을 나타내며, 이는 강력한 수익성의 지표입니다.
 def get_fund_score(ticker):
     logger = logging.getLogger('get_fund_score()')
     logger.setLevel(logging.INFO)
-    fa=FundamentalAnalysis2(ticker)
-    w_score = fa.estimate_basic_measure()
+    fa=FundamentalAnalysis3(ticker)
+    score1 = fa.get_financial_analysis_score()
+    score2 = fa.get_undervalued_analysis_analysis_score()
+    logger.info("financial_analysis score :" + str(score1))
+    logger.info("undervalued_analysis score :" + str(score2))
+    w_score = score1 + score2
     if w_score == 0:
         return 0, None
     
@@ -53,9 +55,10 @@ def run_strategies(ticker, result_list):
     try:
         logger = logging.getLogger('run_strategies()')
         logger.setLevel(logging.INFO)
+
         score, biz_category = get_fund_score(ticker)
         print(score)
-        if score < 95 :
+        if score <= 160 :
             return
         
         start, end = get_period()

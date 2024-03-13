@@ -9,8 +9,23 @@ import requests
 import math
 from io import StringIO
 
+# 재무 분석에 사용할 주요 지표 3개
+# 부채비율 (Debt to Equity Ratio): 기업이 자산 구매를 위해 얼마나 많은 부채를 사용하고 있는지를 나타냅니다. 
+# 낮은 부채비율은 기업이 빚을 적게 지고 있으며, 재무적으로 안정적이라는 것을 의미합니다.
 
-class FundamentalAnalysis2(object):
+# 영업이익률 (Operating Margin): 매출액에서 영업이익이 차지하는 비율을 나타내며, 기업의 핵심 비즈니스가 얼마나 효율적으로 이익을 창출하고 있는지를 보여줍니다. 
+# 높은 영업이익률은 기업이 비용을 효율적으로 관리하며, 본질적인 사업에서 좋은 성과를 내고 있음을 의미합니다.
+
+# 자기자본이익률 (Return on Equity, ROE): 자기자본(주주 자본)으로부터 얻은 순이익의 비율을 나타냅니다. 
+# ROE는 기업이 주주의 자본을 얼마나 효율적으로 이용하여 수익을 창출하고 있는지를 보여줍니다. 높은 ROE는 기업이 주주 자본을 효과적으로 사용하여 높은 수익을 내고 있음을 의미합니다.
+
+# 저평가 분석에 사용할 주요 지표 3개
+# 주가수익비율 (Price to Earnings Ratio, PER): 주가를 주당 순이익(EPS)으로 나눈 값입니다. 낮은 PER은 주가가 주당 이익에 비해 상대적으로 저평가되어 있을 가능성이 있음을 의미합니다.
+# 주가순자산비율 (Price to Book Ratio, PBR): 주가를 주당 순자산가치(BPS)로 나눈 값입니다. PBR이 1 이하일 경우, 기업이 그의 순자산가치보다 낮게 거래되고 있으며, 이는 저평가되었을 가능성을 시사합니다.
+# 배당수익률 (Dividend Yield): 주당 배당금을 현재 주가로 나눈 값입니다. 높은 배당수익률은 주가 대비 좋은 배당수익을 제공하며, 이는 기업이 저평가되었을 가능성이 있음을 나타낼 수 있습니다. 특히, 안정적인 배당을 지속적으로 제공하는 기업의 경우 더욱 그렇습니다.
+
+
+class FundamentalAnalysis3(object):
     def __init__(self, ticker):
         self.current_eps = 0
         self.current_per = 0
@@ -110,7 +125,7 @@ class FundamentalAnalysis2(object):
             data = df[target_cloumn]
 
             #특정 열에서 추정치 제거
-            #data = data[[col for col in data.columns if '(' not in col]]
+            data = data[[col for col in data.columns if '(' not in col]]
 
             #특정 열에서 결측값 제거
             filtered_data = data.dropna(axis=1)
@@ -230,14 +245,31 @@ class FundamentalAnalysis2(object):
             score += 25
         return score
     
+    def get_base_score(self, lst):
+        score = 0
+
+        if sum(lst) == 0:
+            return 50
+        
+        average = sum(lst) / len(lst)
+        if lst[-1] > average :
+            score += 50
+
+        if lst[-1] > lst[-2] :
+            score += 25
+
+        if self.is_sequentially_increasing(lst):
+            score += 25
+        return score
+    
     def caculate_roe_category_score(self, category_roe, stork_roe):
         if stork_roe < category_roe:
             return 0
         
         percent_difference = ((stork_roe - category_roe) / category_roe) * 100
-        if percent_difference >= 30:
+        if percent_difference >= 20:
             return 100
-        elif percent_difference >= 15:
+        elif percent_difference >= 10:
             return 70
         else:
             return 50
@@ -285,9 +317,16 @@ class FundamentalAnalysis2(object):
         
 
     def find_per(self):
-        cop = self.soup.select_one('#corp_group2 > dl:nth-child(4) > dd')
+        cop = self.soup.select_one('#corp_group2 > dl:nth-child(1) > dd')
         str = cop.get_text()
-        print(str)
+        return self.safe_float_convert(str)
+
+    def find_category_per(self):
+        cop = self.soup.select_one('#corp_group2 > dl:nth-child(3) > dd')
+        str = cop.get_text()
+        return self.safe_float_convert(str)
+
+
         #corp_group2 > dl:nth-child(4) > dd
     
 
@@ -356,9 +395,97 @@ class FundamentalAnalysis2(object):
         }
         return self.calculate_weighted_score(data,weights)
     
+    def get_financial_analysis_score(self):
+        roe_annual_lst = self.get_data_lst_by("Annual", "ROE")
+        roe_quater_lst = self.get_data_lst_by("Net Quarter", "ROE")
+        om_annual_lst = self.get_data_lst_by("Annual", "영업이익")
+        om_quater_lst = self.get_data_lst_by("Net Quarter", "영업이익")
+        dte_annual_lst = self.get_data_lst_by("Annual", "부채비율")
+        dte_quater_lst = self.get_data_lst_by("Net Quarter", "부채비율")
+
+        if roe_annual_lst == None or len(roe_annual_lst) == 0:
+            return 0
+
+        # print(dte_annual_lst)
+        # print(dte_quater_lst)
+        # print(om_annual_lst)
+        # print(om_quater_lst)
+        # print("roe annual list :", roe_annual_lst)
+        # print("roe quater list :", roe_quater_lst)
+
+        # print(self.get_biz_category_eps())
+        # print(self.get_biz_category())
+
+        roe_annual_score = self.get_base_score(roe_annual_lst)
+        roe_quater_score = self.get_base_score(roe_quater_lst)
+        om_annual_score = self.get_base_score(om_annual_lst)
+        om_quater_score = self.get_base_score(om_quater_lst)
+        dte_annual_score = self.debt_to_score(dte_annual_lst)
+        dte_quater_score = self.debt_to_score(dte_quater_lst)
+
+        roe_category_score = 0
+        roe_category_score = self.caculate_roe_category_score(self.get_biz_category_roe(), roe_annual_lst[-1])
+
+        data = {'연간영업이익' : om_annual_score, 
+            '분기영업이익' : om_quater_score,
+            '업종ROE비교' : roe_category_score, 
+            '연간ROE' : roe_annual_score,
+            '분기ROE' : roe_quater_score,
+            '연간부채비율': dte_annual_score,
+            '분기별부채비율': dte_quater_score
+            }
+
+        # print(data)
+        
+        weights = {
+            '연간영업이익': 0.2,
+            '분기영업이익': 0.25,
+            '업종ROE비교': 0.2,
+            '연간ROE': 0.2,
+            '분기ROE': 0.25,
+            '연간부채비율': 0.1,  
+            '분기별부채비율': 0.1
+        }
+        return self.calculate_weighted_score(data,weights)
+    
+    def get_per_score(self):
+        per = self.find_per()
+        per_category = self.find_category_per()
+
+        if per == None or per_category == None:
+            return 50
+
+        if per >= per_category:
+            return 0
+        else:
+            return 100
+
+    def get_undervalued_analysis_analysis_score(self):
+        pbr_score = self.find_pbr_score()
+        per = self.find_per()
+        per_category = self.find_category_per()
+        per_score = self.get_per_score()
+
+        data = {'PBR' : pbr_score, 
+            'PER' : per_score,
+            }
+        
+        # print(data)
+
+        weights = {
+            'PBR': 0.5,
+            'PER': 0.5
+        }
+        return self.calculate_weighted_score(data,weights)
+
+        
+    
 def main():
-    test=FundamentalAnalysis2("047920")
-    print(test.estimate_basic_measure())
+    test=FundamentalAnalysis3("010660")
+    #print(test.estimate_basic_measure())
+
+    print(test.get_financial_analysis_score())
+    print(test.get_undervalued_analysis_analysis_score())
 
 if __name__ == "__main__":
     # execute only if run as a script
