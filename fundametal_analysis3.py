@@ -290,12 +290,15 @@ class FundamentalAnalysis3(object):
 
         if lst[-1] < 25:
             score += 75
-        elif 25 <= lst[-1] < 50:
+        elif 25 <= lst[-1] and lst[-1] < 50:
             score += 50
-        elif 50 <= lst[-1] < 75:
-            score += 25
-        else:
-            score += 0
+        elif 50 <= lst[-1] and lst[-1] < 80:
+            score -= 25
+        elif 80 <= lst[-1] and lst[-1] < 100 :
+            score -= 50
+        else : 
+            score = -300
+
         return score
     
     def find_pbr_score(self):
@@ -402,6 +405,7 @@ class FundamentalAnalysis3(object):
         om_quater_lst = self.get_data_lst_by("Net Quarter", "영업이익")
         dte_annual_lst = self.get_data_lst_by("Annual", "부채비율")
         dte_quater_lst = self.get_data_lst_by("Net Quarter", "부채비율")
+        eps_quater_lst = self.get_data_lst_by("Net Quarter", "EPS  (원)")
 
         if roe_annual_lst == None or len(roe_annual_lst) == 0:
             return 0
@@ -422,6 +426,7 @@ class FundamentalAnalysis3(object):
         om_quater_score = self.get_base_score(om_quater_lst)
         dte_annual_score = self.debt_to_score(dte_annual_lst)
         dte_quater_score = self.debt_to_score(dte_quater_lst)
+        eps_quater_score = self.get_eps_quater_score(eps_quater_lst)
 
         roe_category_score = 0
         roe_category_score = self.caculate_roe_category_score(self.get_biz_category_roe(), roe_annual_lst[-1])
@@ -432,19 +437,21 @@ class FundamentalAnalysis3(object):
             '연간ROE' : roe_annual_score,
             '분기ROE' : roe_quater_score,
             '연간부채비율': dte_annual_score,
-            '분기별부채비율': dte_quater_score
+            '분기별부채비율': dte_quater_score,
+            '분기EPS': eps_quater_score
             }
 
-        # print(data)
+        #print(data)
         
         weights = {
             '연간영업이익': 0.2,
             '분기영업이익': 0.25,
             '업종ROE비교': 0.2,
+            '분기EPS': 0.25,
             '연간ROE': 0.2,
-            '분기ROE': 0.25,
-            '연간부채비율': 0.1,  
-            '분기별부채비율': 0.1
+            '분기ROE': 0.2,
+            '연간부채비율': 0.05,  
+            '분기별부채비율': 0.05
         }
         return self.calculate_weighted_score(data,weights)
     
@@ -470,7 +477,7 @@ class FundamentalAnalysis3(object):
             'PER' : per_score,
             }
         
-        # print(data)
+        #print(data)
 
         weights = {
             'PBR': 0.5,
@@ -481,7 +488,7 @@ class FundamentalAnalysis3(object):
         
     
 def main():
-    test=FundamentalAnalysis3("010660")
+    test=FundamentalAnalysis3("457550")
     #print(test.estimate_basic_measure())
 
     print(test.get_financial_analysis_score())

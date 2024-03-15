@@ -13,6 +13,7 @@ from backtest_long_only import BacktestLongOnly
 from fundametal_analysis import FundamentalAnalysis, FundamentalSector
 from fundametal_analysis2 import FundamentalAnalysis2
 from fundametal_analysis3 import FundamentalAnalysis3
+from investor_trends import InvestorTrends
 
 import logging
 
@@ -44,26 +45,38 @@ def get_fund_score(ticker):
     score2 = fa.get_undervalued_analysis_analysis_score()
     logger.info("financial_analysis score :" + str(score1))
     logger.info("undervalued_analysis score :" + str(score2))
-    w_score = score1 + score2
-    if w_score == 0:
-        return 0, None
-    
-    logger.info("weighted_scroe : " + str(w_score))
-    return w_score, fa.get_biz_category()
+
+    category = fa.get_biz_category()
+    if score1 >= 75 and score2 >= 50 :
+        return category
+    elif score2 >=75 and score1 >= 60:
+        return category
+    else : 
+        return None
 
 def run_strategies(ticker, result_list):
     try:
         logger = logging.getLogger('run_strategies()')
         logger.setLevel(logging.INFO)
 
-        score, biz_category = get_fund_score(ticker)
-        print(score)
-        if score <= 160 :
+        category = get_fund_score(ticker)
+        if category == None :
             return
         
+        # 수급 분석
+        ivt = InvestorTrends(ticker) 
+        agency_tv_20 = ivt.get_cumulative_trading_volume_agency(10)
+        foreigner_tv_20 = ivt.get_cumulative_trading_volume_foreigner(10)
+
+        logger.info("기관 수급 20일:" + str(agency_tv_20))
+        logger.info("외국인 수급 20일 :" + str(foreigner_tv_20))
+
         start, end = get_period()
         data_handler = StockDataHandler(ticker, start, end)
         if data_handler.check_valid_data() == False:
+            return 
+        
+        if agency_tv_20 + foreigner_tv_20 < 0 :
             return 
         
         if technical_analysis.pattern4_check(data_handler.get_weekly_data()) :
@@ -72,7 +85,7 @@ def run_strategies(ticker, result_list):
                 logger.info("pattern5_check pass")
                 name = stock.get_market_ticker_name(ticker)
                 #print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-                result_list.append(ticker + ' : ' + name + ' [' + biz_category + ']')
+                result_list.append(ticker + ' : ' + name + ' [' + category + ']' + str(agency_tv_20) + ', ' + str(foreigner_tv_20) )
                 print('p1 pass')
     except Exception as e:
         print(e)
@@ -89,7 +102,7 @@ def main():
     try:
         current_date = datetime.now()
         current_date_string = current_date.strftime('%Y-%m-%d')
-        log_file_name = 'log_daybase' + current_date_string
+        log_file_name = 'log_shorterm_' + current_date_string
         logging.basicConfig(filename=log_file_name, encoding='utf-8', filemode='w', level=logging.INFO)
         kospi_tickers = get_tickers('KOSPI')
         if kospi_tickers == None:
