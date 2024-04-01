@@ -49,6 +49,16 @@ def pattern4_check(df) :
         return True
     return False
 
+def pattern5_1_check(df) :
+    res = algorithms.adx(df['high_price'], df['low_price'], df['trade_price'], 14)
+    cci14 = algorithms.get_current_cci(df, 14)
+    if res['DMP_14'].iloc[-1] > res['DMN_14'].iloc[-1] and \
+        res['ADX_14'].iloc[-1] < res['DMP_14'].iloc[-1] :
+        slow_k, slow_d = algorithms.stc_slow(df, 14, 5, 5)
+        if slow_d.iloc[-1] < 45 :
+            return True
+    return False
+
 def pattern5_check(df) :
     slow_k, slow_d = algorithms.stc_slow(df, 9, 3, 3)
     if slow_d.iloc[-1] < 33 :

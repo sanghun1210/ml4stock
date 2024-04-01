@@ -47,9 +47,13 @@ def get_fund_score(ticker):
     logger.info("undervalued_analysis score :" + str(score2))
 
     category = fa.get_biz_category()
-    if score1 >= 75 and score2 >= 50 :
+    if score1 >= 75 and score2 >= 60 :
         return category
-    elif score2 >=75 and score1 >= 60:
+    elif score2 >=80 and score1 >= 60:
+        return category
+    elif score1 >=90 and score2 >= 50:
+        return category
+    elif score2 >=100 and score1 >= 50:
         return category
     else : 
         return None
@@ -64,27 +68,27 @@ def run_strategies(ticker, result_list):
             return
         
         # 수급 분석
-        ivt = InvestorTrends(ticker) 
-        agency_tv_20 = ivt.get_cumulative_trading_volume_agency(20)
-        foreigner_tv_20 = ivt.get_cumulative_trading_volume_foreigner(20)
+        # ivt = InvestorTrends(ticker) 
+        # agency_tv_20 = ivt.get_cumulative_trading_volume_agency(20)
+        # foreigner_tv_20 = ivt.get_cumulative_trading_volume_foreigner(20)
 
-        logger.info("기관 수급 20일:" + str(agency_tv_20))
-        logger.info("외국인 수급 20일 :" + str(foreigner_tv_20))
+        # logger.info("기관 수급 20일:" + str(agency_tv_20))
+        # logger.info("외국인 수급 20일 :" + str(foreigner_tv_20))
         
         start, end = get_period()
         data_handler = StockDataHandler(ticker, start, end)
         if data_handler.check_valid_data() == False:
             return 
         
-        if agency_tv_20 + foreigner_tv_20 < 0 :
-            return 
+        # if agency_tv_20 + foreigner_tv_20 < 0 :
+        #     return 
         
         if technical_analysis.pattern6_check(data_handler.get_daily_data()) :
             if technical_analysis.pattern5_check(data_handler.get_daily_data()):
                 logger.info("pattern6_check pass")
                 name = stock.get_market_ticker_name(ticker)
                 #print(ticker + ' p1 : ' + name + ' next_week : ' + str(ret_next_week) + ' next_month : ' + str(ret_next_week5))
-                result_list.append(ticker + ' : ' + name + ' [' + category + ']' + str(agency_tv_20) + ', ' + str(foreigner_tv_20) )
+                result_list.append(ticker + ' : ' + name + ' [' + category + ']' )
                 print('p1 pass')
     except Exception as e:
         print(e)

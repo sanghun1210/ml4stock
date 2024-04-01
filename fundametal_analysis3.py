@@ -124,8 +124,8 @@ class FundamentalAnalysis3(object):
             df = self.df.loc[field_names[self.table_token]==target_row]
             data = df[target_cloumn]
 
-            #특정 열에서 추정치 제거
-            data = data[[col for col in data.columns if '(' not in col]]
+            # 특정 열에서 추정치 제거
+            # data = data[[col for col in data.columns if '(' not in col]]
 
             #특정 열에서 결측값 제거
             filtered_data = data.dropna(axis=1)
@@ -251,6 +251,9 @@ class FundamentalAnalysis3(object):
         if sum(lst) == 0:
             return 50
         
+        if len(lst) == 1:
+            return 50
+        
         average = sum(lst) / len(lst)
         if lst[-1] > average :
             score += 50
@@ -286,18 +289,25 @@ class FundamentalAnalysis3(object):
         score = 0
         average = sum(lst) / len(lst)
         if lst[-1] < average :
-            score += 25
+            score += 30
 
-        if lst[-1] < 25:
-            score += 75
-        elif 25 <= lst[-1] and lst[-1] < 50:
-            score += 50
-        elif 50 <= lst[-1] and lst[-1] < 80:
-            score -= 25
-        elif 80 <= lst[-1] and lst[-1] < 100 :
-            score -= 50
-        else : 
-            score = -300
+        if lst[-1] > average :
+            score += -50
+
+        if self.is_last_item_largest(lst):
+            score += -50
+            
+
+        # if lst[-1] < 25:
+        #     score += 75
+        # elif 25 <= lst[-1] and lst[-1] < 50:
+        #     score += 50
+        # elif 50 <= lst[-1] and lst[-1] < 80:
+        #     score -= 25
+        # elif 80 <= lst[-1] and lst[-1] < 150 :
+        #     score -= 50
+        # else : 
+        #     score = -300
 
         return score
     
@@ -309,11 +319,16 @@ class FundamentalAnalysis3(object):
                 return 100
             elif pbr <= 1.5:
                 return 50
-            elif pbr <= 2.5:
-                return 30
-            return 0
+            else:
+                eps_annual_lst = self.get_data_lst_by("Annual", "EPS  (원)")
+                eps_quater_lst = self.get_data_lst_by("Net Quarter", "EPS  (원)")
+                eps_annual_score = self.get_eps_score(eps_annual_lst)
+                eps_quater_score = self.get_eps_quater_score(eps_quater_lst)
+                if eps_annual_score + eps_quater_score >= 140:
+                    return 80
+                else:
+                    return 20
 
-            
         except Exception as e:
             print('find_pbr : ', e)
             return None
@@ -416,6 +431,7 @@ class FundamentalAnalysis3(object):
         # print(om_quater_lst)
         # print("roe annual list :", roe_annual_lst)
         # print("roe quater list :", roe_quater_lst)
+        # print("eps quater list :", eps_quater_lst)
 
         # print(self.get_biz_category_eps())
         # print(self.get_biz_category())
@@ -437,7 +453,7 @@ class FundamentalAnalysis3(object):
             '연간ROE' : roe_annual_score,
             '분기ROE' : roe_quater_score,
             '연간부채비율': dte_annual_score,
-            '분기별부채비율': dte_quater_score,
+            #'분기별부채비율': dte_quater_score,
             '분기EPS': eps_quater_score
             }
 
@@ -488,7 +504,7 @@ class FundamentalAnalysis3(object):
         
     
 def main():
-    test=FundamentalAnalysis3("457550")
+    test=FundamentalAnalysis3("000150")
     #print(test.estimate_basic_measure())
 
     print(test.get_financial_analysis_score())
