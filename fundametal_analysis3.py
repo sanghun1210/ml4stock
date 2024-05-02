@@ -426,7 +426,7 @@ class FundamentalAnalysis3(object):
             return 0
 
         # print(dte_annual_lst)
-        # print(dte_quater_lst)
+        print(dte_quater_lst)
         # print(om_annual_lst)
         # print(om_quater_lst)
         # print("roe annual list :", roe_annual_lst)
@@ -504,7 +504,7 @@ class FundamentalAnalysis3(object):
         
     
 def main():
-    test=FundamentalAnalysis3("000150")
+    test=FundamentalAnalysis3("058220")
     #print(test.estimate_basic_measure())
 
     print(test.get_financial_analysis_score())
